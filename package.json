@@ -26,6 +26,7 @@
   "dependencies": {
     "angular-jwt": "^0.1.9",
     "bcrypt-nodejs": "0.0.3",
+    "body-parser": "^1.17.1",
     "dotenv": "^1.2.0",
     "express": "^4.12.4",
     "express-session": "^1.11.3",
