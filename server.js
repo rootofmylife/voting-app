@@ -7,9 +7,12 @@ var passport = require('passport');
 var session = require('express-session');
 var morgan = require("morgan");
 var bodyParser = require("body-parser");
+var dotenv = require("dotenv");
+
 var app = express();
 require('dotenv').load();
 require('./app/config/passport')(passport);
+dotenv.config({verbose: true});
 
 mongoose.connect(process.env.MONGO_URI);
 mongoose.Promise = global.Promise;
@@ -26,15 +29,21 @@ app.use(session({
 
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(morgan('dev'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: false}));
+app.use(express.static(__dirname + '/public'));
+
 
 routes(app, passport);
 
-app.get('/loginuser', function(req, res, err){
+app.get('*', function(req, res, err){
 	if(err){
 		console.log(err);
 	}
 	//https://github.com/Mozar10/voteR
-	res.json('login fine');
+	res.sendFile(__dirname + '/public/loginpoll.html');
+	//mongod --smallfiles
 });
 
 var port = process.env.PORT || 8080;
