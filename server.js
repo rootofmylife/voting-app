@@ -28,6 +28,14 @@ app.use(passport.session());
 
 routes(app, passport);
 
+app.get('/loginuser', function(req, res, err){
+	if(err){
+		console.log(err);
+	}
+	//https://github.com/Mozar10/voteR
+	res.json('login fine');
+});
+
 var port = process.env.PORT || 8080;
 app.listen(port,  function () {
 	console.log('Node.js listening on port ' + port + '...');
